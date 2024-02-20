@@ -23,9 +23,8 @@ def setup_database():
                      (id INTEGER PRIMARY KEY, username TEXT UNIQUE, password TEXT, created_at TEXT)''')
         conn.commit()
 
-# パスワードをハッシュ化
-def hash_password(password):
-    return hashlib.sha256(password.encode()).hexdigest()
+# アプリケーション起動時にデータベースセットアップを実行
+setup_database()
 
 @app.route('/')
 def index():
@@ -92,5 +91,4 @@ def post():
     return render_template('post.html')
 
 if __name__ == '__main__':
-    setup_database()
     app.run(debug=True)
