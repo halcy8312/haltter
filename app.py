@@ -23,6 +23,10 @@ def setup_database():
                      (id INTEGER PRIMARY KEY, username TEXT UNIQUE, password TEXT, created_at TEXT)''')
         conn.commit()
 
+# パスワードをハッシュ化
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
 # アプリケーション起動時にデータベースセットアップを実行
 setup_database()
 
