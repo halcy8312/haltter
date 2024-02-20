@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Haltter - ログイン</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h2>Login</h2>
+    {% include 'layout.html' %}
+    <h2>ログイン</h2>
     <form method="post">
-        Username: <input type="text" name="username"><br>
-        Password: <input type="password" name="password"><br>
-        <input type="submit" value="Login">
+        ユーザー名: <input type="text" name="username"><br>
+        パスワード: <input type="password" name="password"><br>
+        <input type="submit" value="ログイン">
     </form>
-    <a href="/register">Register</a>
+    <a href="/register">登録</a>
 </body>
 </html>

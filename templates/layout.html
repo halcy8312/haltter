@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Haltter{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <header>
-        <h1>Twitter Clone</h1>
+        <h1>Haltter</h1>
     </header>
     
     <nav>
         <ul>
-            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('index') }}">ホーム</a></li>
             {% if 'username' in session %}
-            <li><a href="{{ url_for('post') }}">New Post</a></li>
-            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            <li><a href="{{ url_for('post') }}">新規投稿</a></li>
+            <li><a href="{{ url_for('logout') }}">ログアウト</a></li>
             {% else %}
-            <li><a href="{{ url_for('login') }}">Login</a></li>
-            <li><a href="{{ url_for('register') }}">Register</a></li>
+            <li><a href="{{ url_for('login') }}">ログイン</a></li>
+            <li><a href="{{ url_for('register') }}">登録</a></li>
             {% endif %}
         </ul>
     </nav>
@@ -29,7 +29,7 @@
     </article>
 
     <footer>
-        <p>Twitter Clone by your name</p>
+        <p>Haltter by your name</p>
     </footer>
 </body>
 </html>

@@ -2,16 +2,17 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>タイムライン</title>
+    <title>Haltter - タイムライン</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     {% include 'layout.html' %}
     <h1>タイムライン</h1>
+    <button onclick="window.location.reload();">更新</button>
     {% if posts %}
         <ul>
         {% for post in posts %}
-            <li><strong>{{ post.username }}</strong>: {{ post.content }} ({{ post.posted_at }}) 
+            <li><strong>{{ post.username }}</strong>: {{ post.content }} ({{ post.posted_at }})
             {% if session['username'] == post.username %}
                 <form action="{{ url_for('delete_post', post_id=post.id) }}" method="post">
                     <button type="submit">削除</button>
@@ -22,6 +23,9 @@
         </ul>
     {% else %}
         <p>まだ投稿はありません。</p>
+    {% endif %}
+    {% if not session['username'] %}
+        <a href="{{ url_for('login') }}">ログイン</a>
     {% endif %}
     <a href="{{ url_for('post') }}">新しい投稿を作成</a> | <a href="{{ url_for('logout') }}">ログアウト</a>
 </body>

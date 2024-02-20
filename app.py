@@ -39,7 +39,7 @@ def index():
     else:
         posts = conn.execute('SELECT * FROM tweets ORDER BY posted_at DESC').fetchall()
     conn.close()
-    return render_template('index.html', posts=posts, hide_username=hide_username)
+    return render_template('index.html', posts=posts, hide_username=hide_username, logged_in='username' in session)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
