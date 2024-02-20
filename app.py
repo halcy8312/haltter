@@ -32,10 +32,14 @@ setup_database()
 
 @app.route('/')
 def index():
+    hide_username = request.args.get('hide_username')
     conn = get_db_connection()
-    posts = conn.execute('SELECT username, content, posted_at FROM tweets ORDER BY posted_at DESC').fetchall()
+    if hide_username:
+        posts = conn.execute('SELECT * FROM tweets WHERE username != ? ORDER BY posted_at DESC', (hide_username,)).fetchall()
+    else:
+        posts = conn.execute('SELECT * FROM tweets ORDER BY posted_at DESC').fetchall()
     conn.close()
-    return render_template('index.html', posts=posts)
+    return render_template('index.html', posts=posts, hide_username=hide_username)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -93,6 +97,23 @@ def post():
         flash('投稿が完了しました!')
         return redirect(url_for('index'))
     return render_template('post.html')
+
+@app.route('/delete/<int:post_id>', methods=['POST'])
+def delete_post(post_id):
+    if 'username' not in session:
+        flash('ログインが必要です。')
+        return redirect(url_for('login'))
+
+    with get_db_connection() as conn:
+        # 投稿のオーナーを確認
+        post = conn.execute('SELECT username FROM tweets WHERE id = ?', (post_id,)).fetchone()
+        if post and post['username'] == session['username']:
+            conn.execute('DELETE FROM tweets WHERE id = ?', (post_id,))
+            conn.commit()
+            flash('投稿が削除されました。')
+        else:
+            flash('削除権限がありません。')
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)

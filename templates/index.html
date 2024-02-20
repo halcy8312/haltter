@@ -2,19 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Timeline</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Clone</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Timeline</h1>
-    {% if posts %}
-        <ul>
+    <header>
+        <h1>Twitter Clone</h1>
+    </header>
+
+    <div>
+        <form action="{{ url_for('index') }}" method="get">
+            <label for="hide_username">特定ユーザーの投稿を非表示:</label>
+            <input type="text" id="hide_username" name="hide_username" placeholder="ユーザー名を入力">
+            <button type="submit">非表示にする</button>
+        </form>
+    </div>
+
+    <div>
         {% for post in posts %}
-            <li><strong>{{ post.username }}</strong>: {{ post.content }} ({{ post.posted_at }})</li>
+        <div>
+            <p>{{ post.username }}: {{ post.content }} ({{ post.posted_at }})</p>
+            {% if session['username'] == post.username %}
+            <form action="{{ url_for('delete_post', post_id=post.id) }}" method="post">
+                <button type="submit">削除</button>
+            </form>
+            {% endif %}
+        </div>
+        {% else %}
+        <p>投稿がありません。</p>
         {% endfor %}
-        </ul>
-    {% else %}
-        <p>No posts yet.</p>
-    {% endif %}
-    <a href="/post">Create a new post</a> | <a href="/logout">Logout</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Twitter Clone</p>
+    </footer>
 </body>
 </html>
