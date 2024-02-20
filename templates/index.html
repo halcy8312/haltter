@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Timeline</title>
+</head>
+<body>
+    <h1>Timeline</h1>
+    {% if posts %}
+        <ul>
+        {% for post in posts %}
+            <li><strong>{{ post.username }}</strong>: {{ post.content }} ({{ post.posted_at }})</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No posts yet.</p>
+    {% endif %}
+    <a href="/post">Create a new post</a> | <a href="/logout">Logout</a>
+</body>
+</html>
