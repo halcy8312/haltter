@@ -4,7 +4,7 @@ from datetime import datetime
 import hashlib
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+app.secret_key = 'alb2c3d4e5f6g7h8i9j0'
 
 # データベース接続の関数
 def get_db_connection():
