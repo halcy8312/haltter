@@ -2,9 +2,10 @@ from flask import Flask, request, render_template, redirect, url_for, session, f
 import sqlite3
 from datetime import datetime
 import hashlib
+import os
 
 app = Flask(__name__)
-app.secret_key = 'alb2c3d4e5f6g7h8i9j0'
+app.secret_key = os.environ.get('SECRET_KEY', 'default-secret-key')
 
 # データベース接続の関数
 def get_db_connection():
