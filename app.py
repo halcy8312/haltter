@@ -1,19 +1,22 @@
 from flask import Flask, request, render_template, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 from datetime import datetime
 import hashlib
 from dotenv import load_dotenv
 import os
+from flask_migrate import Migrate
+
 
 load_dotenv()  # 環境変数を読み込む
 
 app = Flask(__name__)
+# 環境変数からデータベースURLを取得、設定されていない場合はデフォルトのSQLiteデータベースを使用
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///mydatabase.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)  # Flask-Migrateの初期化
+migrate = Migrate(app, db)
 
+# セッションの秘密鍵、環境変数から取得、設定されていない場合はデフォルト値を使用
 app.secret_key = os.environ.get('SECRET_KEY', 'mysecretkey')
 
 class User(db.Model):
@@ -55,14 +58,10 @@ class Follow(db.Model):
     followed_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
-# db.create_all()  # この行を削除またはコメントアウト
+# db.create_all()を削除または、コメントアウト
 
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
-
-# 以下、ルート定義は変更なし
-
-# db.create_all()を削除または、コメントアウト
 
 @app.route('/')
 def index():
