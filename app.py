@@ -4,6 +4,8 @@ from datetime import datetime
 import hashlib
 from dotenv import load_dotenv
 import os
+from flask_migrate import Migrate
+
 
 load_dotenv()  # 環境変数を読み込む
 
@@ -12,7 +14,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///mydatabase.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-
+migrate = Migrate(app, db)
 
 # セッションの秘密鍵、環境変数から取得、設定されていない場合はデフォルト値を使用
 app.secret_key = os.environ.get('SECRET_KEY', 'mysecretkey')
