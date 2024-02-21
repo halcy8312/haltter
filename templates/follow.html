@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>フォロー一覧 - Haltter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% include 'layout.html' %}
+    <div class="container">
+        <h2>フォローしているユーザー</h2>
+        <ul>
+            {% for user in following %}
+                <li>
+                    {{ user.username }}
+                    <form action="{{ url_for('unfollow', user_id=user.id) }}" method="post">
+                        <button type="submit">フォロー解除</button>
+                    </form>
+                </li>
+            {% else %}
+                <p>フォローしているユーザーはいません。</p>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="container">
+        <h2>フォロワー</h2>
+        <ul>
+            {% for user in followers %}
+                <li>
+                    {{ user.username }}
+                    <form action="{{ url_for('follow', user_id=user.id) }}" method="post">
+                        <button type="submit">フォローする</button>
+                    </form>
+                </li>
+            {% else %}
+                <p>フォロワーはいません。</p>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
+    

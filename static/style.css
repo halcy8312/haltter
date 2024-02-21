@@ -3,6 +3,7 @@ body {
     background-color: #f0f2f5;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 header {
@@ -10,11 +11,19 @@ header {
     color: #fff;
     padding: 20px 0;
     text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
 }
 
 nav {
     background-color: #444;
     overflow: hidden;
+    position: fixed;
+    width: 100%;
+    top: 60px; /* headerの高さに応じて調整 */
+    z-index: 1000;
 }
 
 nav ul {
@@ -41,7 +50,7 @@ nav ul li a:hover {
 
 .container {
     width: 80%;
-    margin: 20px auto;
+    margin: 140px auto 60px; /* headerとnavの高さに応じて調整 */
     background-color: #fff;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -52,9 +61,10 @@ footer {
     color: #fff;
     text-align: center;
     padding: 20px 0;
-    position: relative;
+    position: fixed;
     bottom: 0;
     width: 100%;
+    z-index: 1000;
 }
 
 article {

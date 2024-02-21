@@ -18,11 +18,13 @@
         <ul>
             <li><a href="{{ url_for('index') }}">ホーム</a></li>
             {% if 'username' in session %}
-            <li><a href="{{ url_for('post') }}">新規投稿</a></li>
-            <li><a href="{{ url_for('logout') }}">ログアウト</a></li>
+                <li><a href="{{ url_for('account') }}">アカウント</a></li>
+                <li><a href="{{ url_for('follow') }}">フォロー一覧</a></li>
+                <li><a href="{{ url_for('post') }}">新規投稿</a></li>
+                <li><a href="{{ url_for('logout') }}">ログアウト</a></li>
             {% else %}
-            <li><a href="{{ url_for('login') }}">ログイン</a></li>
-            <li><a href="{{ url_for('register') }}">登録</a></li>
+                <li><a href="{{ url_for('login') }}">ログイン</a></li>
+                <li><a href="{{ url_for('register') }}">登録</a></li>
             {% endif %}
         </ul>
     </nav>

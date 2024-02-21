@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>アカウント管理 - Haltter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% include 'layout.html' %}
+    <div class="container">
+        <h2>アカウント管理</h2>
+        <form method="post">
+            ユーザー名: <input type="text" name="username" value="{{ user.username }}"><br>
+            プロフィール: <textarea name="profile">{{ user.profile }}</textarea><br>
+            <input type="submit" value="更新">
+        </form>
+    </div>
+</body>
+</html>
