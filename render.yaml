@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: haltter
+    env: python
+    region: oregon  
+    plan: free
+    buildCommand: pip install -r requirements.txt && pip install gunicorn==20.1.0
+    startCommand: gunicorn app:app
+    envVars:
+      - key: SECRET_KEY
+        sync: false
+
+databases:
+  - name: Data1
+    plan: free
+    region: oregon
+    databaseName: Data1
+    ipAllowList: []
+
+envVarGroups:
+  - name: myappenv
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: Data1
+          property: connectionString

@@ -58,7 +58,7 @@ class Follow(db.Model):
     followed_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
-db.create_all()
+# db.create_all()を削除または、コメントアウト
 
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
@@ -167,4 +167,6 @@ def unfollow(username):
     return redirect(url_for('account', username=username))
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all() # アプリケーションコンテキスト内で呼び出す
     app.run(debug=True)
